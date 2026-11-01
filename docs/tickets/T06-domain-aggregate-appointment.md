@@ -12,13 +12,13 @@ Implement the `Appointment` aggregate root — the central domain object. Uses t
 
 ## Acceptance Criteria
 
-- [ ] `Appointment` extends `AggregateRoot<AppointmentId>`
-- [ ] Factory method `Appointment.create(...)` returns `Result<Appointment>` (not constructor)
-- [ ] All state transitions use `Result<Void>`: `cancel()`, `checkIn()`, `complete()`, `markNoShow()`
-- [ ] All methods accept injected `Clock` (no `LocalDateTime.now()` calls)
-- [ ] Domain events raised: `AppointmentCreatedEvent`, `AppointmentCancelledEvent`, `AppointmentCheckedInEvent`, `AppointmentCompletedEvent`, `AppointmentNoShowEvent`
-- [ ] `reconstruct()` static method for hydrating from persistence
-- [ ] Unit tests for all valid transitions, invalid transitions, and invariant violations
+- [x] `Appointment` extends `AggregateRoot<AppointmentId>`
+- [x] Factory method `Appointment.create(...)` returns `Result<Appointment>` (not constructor)
+- [x] All state transitions use `Result<Void>`: `cancel()`, `checkIn()`, `complete()`, `markNoShow()`
+- [x] All methods accept injected `Clock` (no `LocalDateTime.now()` calls)
+- [x] Domain events raised: `AppointmentCreatedEvent`, `AppointmentCancelledEvent`, `AppointmentCheckedInEvent`, `AppointmentCompletedEvent`, `AppointmentNoShowEvent`
+- [x] `reconstruct()` static method for hydrating from persistence
+- [x] Unit tests for all valid transitions, invalid transitions, and invariant violations
 
 ## Implementation Details
 
