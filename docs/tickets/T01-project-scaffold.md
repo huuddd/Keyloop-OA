@@ -12,10 +12,10 @@ Initialize a Spring Boot 3.3.5 project with Java 21, PostgreSQL driver, Flyway, 
 
 ## Acceptance Criteria
 
-- [ ] `pom.xml` — all dependencies present with correct versions
-- [ ] `SchedulerApplication.java` — `@SpringBootApplication` + `@EnableScheduling`
-- [ ] `application.yml` — PostgreSQL datasource, Flyway, virtual threads, ProblemDetail, Actuator
-- [ ] `mvn compile` succeeds (no DB needed at this stage)
+- [x] `pom.xml` — all dependencies present with correct versions
+- [x] `SchedulerApplication.java` — `@SpringBootApplication` + `@EnableScheduling`
+- [x] `application.yml` — PostgreSQL datasource, Flyway, virtual threads, ProblemDetail, Actuator
+- [x] `mvn compile` succeeds (no DB needed at this stage)
 
 ## Implementation Details
 
