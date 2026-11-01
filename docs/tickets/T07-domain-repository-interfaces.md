@@ -12,12 +12,12 @@ Define repository interfaces (ports) in the domain layer for each aggregate. The
 
 ## Acceptance Criteria
 
-- [ ] `AppointmentRepository` — CRUD + overlap queries (with and without pessimistic lock) + paged search
-- [ ] `CustomerRepository`, `VehicleRepository` — findById
-- [ ] `DealershipRepository`, `ServiceBayRepository`, `TechnicianRepository` — findById + aggregate-specific queries
-- [ ] `ServiceTypeRepository` — findById
-- [ ] All interfaces use strongly-typed IDs (not raw Long/UUID)
-- [ ] Each interface lives in its aggregate's package
+- [x] `AppointmentRepository` — CRUD + overlap queries (with and without pessimistic lock) + paged search
+- [x] `CustomerRepository`, `VehicleRepository` — findById
+- [x] `DealershipRepository`, `ServiceBayRepository`, `TechnicianRepository` — findById + aggregate-specific queries
+- [x] `ServiceTypeRepository` — findById
+- [x] All interfaces use strongly-typed IDs (not raw Long/UUID)
+- [x] Each interface lives in its aggregate's package
 
 ## Implementation Details
 
