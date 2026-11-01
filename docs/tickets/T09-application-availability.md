@@ -14,13 +14,13 @@ This follows the CQRS pattern: `GetAvailableSlotsQuery` implements `Query<PagedR
 
 ## Acceptance Criteria
 
-- [ ] `GetAvailableSlotsQuery` record implements `Query<PagedResult<AvailableSlotDto>>`
-- [ ] `GetAvailableSlotsQueryHandler` implements `QueryHandler`
-- [ ] Calculates all available slots = all possible − booked (per bay × per tech)
-- [ ] Uses typed IDs (`DealershipId`, `ServiceTypeId`) — anti-corruption layer at handler boundary
-- [ ] Validates: dealership exists, serviceType exists, date not in past
-- [ ] Returns sorted by startTime with OFFSET-based pagination (`PagedResult<AvailableSlotDto>`)
-- [ ] Unit tests with mock repositories
+- [x] `GetAvailableSlotsQuery` record implements `Query<PagedResult<AvailableSlotDto>>`
+- [x] `GetAvailableSlotsQueryHandler` implements `QueryHandler`
+- [x] Calculates all available slots = all possible − booked (per bay × per tech)
+- [x] Uses typed IDs (`DealershipId`, `ServiceTypeId`) — anti-corruption layer at handler boundary
+- [x] Validates: dealership exists, serviceType exists, date not in past
+- [x] Returns sorted by startTime with OFFSET-based pagination (`PagedResult<AvailableSlotDto>`)
+- [x] Unit tests with mock repositories
 
 ## Implementation Details
 
