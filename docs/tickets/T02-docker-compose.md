@@ -12,8 +12,8 @@ Create `docker-compose.yml` with PostgreSQL 16 and the application service, plus
 
 ## Acceptance Criteria
 
-- [ ] `docker-compose.yml` — PostgreSQL 16 with healthcheck + app service
-- [ ] `Dockerfile` — multi-stage build (JDK 21 build → JRE 21 runtime)
+- [x] `docker-compose.yml` — PostgreSQL 16 with healthcheck + app service
+- [x] `Dockerfile` — multi-stage build (JDK 21 build → JRE 21 runtime)
 - [ ] `docker compose up -d postgres` starts a healthy database
 - [ ] `docker compose up --build` starts both app + database
 - [ ] App connects to `scheduler_db` on startup
