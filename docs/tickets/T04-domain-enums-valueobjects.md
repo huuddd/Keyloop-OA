@@ -14,16 +14,16 @@ All code in the `domain` package is **pure Java** — zero framework dependencie
 
 ## Acceptance Criteria
 
-- [ ] Entity hierarchy: `Entity<TId>` → `AuditableEntity<TId>` → `SoftDeletableEntity<TId>` → `AggregateRoot<TId>`
-- [ ] `Result<T>` sealed interface with `Success` / `Failure` records
-- [ ] `Error` record with code + message
-- [ ] `DomainEvent` marker interface with `occurredOn()`
-- [ ] `Auditable` + `SoftDeletable` interfaces
-- [ ] Strongly-typed IDs: `AppointmentId`, `CustomerId`, `VehicleId`, `DealershipId`, `ServiceBayId`, `TechnicianId`, `ServiceTypeId`
-- [ ] `AppointmentStatus` enum with `canTransitionTo()` state machine
-- [ ] `Specialization` enum (GENERAL, BRAKES, ENGINE)
-- [ ] `TimeSlot` value object with `overlapsWith()` logic
-- [ ] Unit tests for state transitions and TimeSlot overlap
+- [x] Entity hierarchy: `Entity<TId>` → `AuditableEntity<TId>` → `SoftDeletableEntity<TId>` → `AggregateRoot<TId>`
+- [x] `Result<T>` sealed interface with `Success` / `Failure` records
+- [x] `Error` record with code + message
+- [x] `DomainEvent` marker interface with `occurredOn()`
+- [x] `Auditable` + `SoftDeletable` interfaces
+- [x] Strongly-typed IDs: `AppointmentId`, `CustomerId`, `VehicleId`, `DealershipId`, `ServiceBayId`, `TechnicianId`, `ServiceTypeId`
+- [x] `AppointmentStatus` enum with `canTransitionTo()` state machine
+- [x] `Specialization` enum (GENERAL, BRAKES, ENGINE)
+- [x] `TimeSlot` value object with `overlapsWith()` logic
+- [x] Unit tests for state transitions and TimeSlot overlap
 
 ## Implementation Details
 

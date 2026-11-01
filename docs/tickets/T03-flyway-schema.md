@@ -12,12 +12,12 @@ Create all Flyway migration scripts (V1–V5) that define the complete database 
 
 ## Acceptance Criteria
 
-- [ ] V1 — core schema: 8 tables with constraints, indexes, and partial indexes
-- [ ] V2 — seed data: 1 dealership, 3 bays, 4 service types, 5 technicians, 2 customers, 2 vehicles
-- [ ] V3 — expand appointment status CHECK constraint from 2 to 5 statuses; rebuild partial indexes
-- [ ] V4 — idempotency key table with expiry index
-- [ ] V5 — audit (createdBy, updatedBy) + soft delete (deleted, deletedAt, deletedBy) columns
-- [ ] `mvn spring-boot:run` — Flyway applies all 5 migrations, Hibernate validates schema
+- [x] V1 — core schema: 8 tables with constraints, indexes, and partial indexes
+- [x] V2 — seed data: 1 dealership, 3 bays, 4 service types, 5 technicians, 2 customers, 2 vehicles
+- [x] V3 — expand appointment status CHECK constraint from 2 to 5 statuses; rebuild partial indexes
+- [x] V4 — idempotency key table with expiry index
+- [x] V5 — audit (createdBy, updatedBy) + soft delete (deleted, deletedAt, deletedBy) columns
+- [x] `mvn spring-boot:run` — Flyway applies all 5 migrations, Hibernate validates schema
 
 ## Implementation Details
 
