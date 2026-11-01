@@ -30,17 +30,17 @@ Implement all CQRS command and query handlers for the appointment domain. The ap
 
 ## Acceptance Criteria
 
-- [ ] All 5 command handlers implement `CommandHandler<C, R>` returning `Result<R>`
-- [ ] All query handlers implement `QueryHandler<Q, R>`
-- [ ] `CreateAppointmentCommandHandler`: validate → lock → create → persist → publish events
-- [ ] `CancelAppointmentCommandHandler`: find → cancel(clock) → persist → publish events
-- [ ] `CheckInAppointmentCommandHandler`: find → checkIn(clock) → persist → publish events
-- [ ] `CompleteAppointmentCommandHandler`: find → complete(clock) → persist → publish events
-- [ ] `MarkNoShowCommandHandler`: find → markNoShow(clock) → persist → publish events
-- [ ] `SearchAppointmentsQueryHandler`: delegates to `AppointmentRepository.searchAppointments()` with `PagedResult<AppointmentDto>`
-- [ ] `ValidatingService` collects and runs all `CommandValidator<T>` implementations
-- [ ] `CreateAppointmentCommandValidator` checks null fields + entity existence
-- [ ] Unit tests for all handlers
+- [x] All 5 command handlers implement `CommandHandler<C, R>` returning `Result<R>`
+- [x] All query handlers implement `QueryHandler<Q, R>`
+- [x] `CreateAppointmentCommandHandler`: validate → lock → create → persist → publish events
+- [x] `CancelAppointmentCommandHandler`: find → cancel(clock) → persist → publish events
+- [x] `CheckInAppointmentCommandHandler`: find → checkIn(clock) → persist → publish events
+- [x] `CompleteAppointmentCommandHandler`: find → complete(clock) → persist → publish events
+- [x] `MarkNoShowCommandHandler`: find → markNoShow(clock) → persist → publish events
+- [x] `SearchAppointmentsQueryHandler`: delegates to `AppointmentRepository.searchAppointments()` with `PagedResult<AppointmentDto>`
+- [x] `ValidatingService` collects and runs all `CommandValidator<T>` implementations
+- [x] `CreateAppointmentCommandValidator` checks null fields + entity existence
+- [x] Unit tests for all handlers
 
 ## Implementation Details
 

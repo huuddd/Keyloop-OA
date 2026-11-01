@@ -1,5 +1,7 @@
 package com.keyloop.scheduler.application.cqrs;
 
+import com.keyloop.scheduler.domain.shared.Result;
+
 public interface CommandHandler<C extends Command<R>, R> {
-    R handle(C command);
+    Result<R> handle(C command);
 }
