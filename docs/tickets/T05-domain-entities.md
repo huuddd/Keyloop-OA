@@ -12,13 +12,13 @@ Create the supporting domain entities organized by aggregate: `dealership` (Deal
 
 ## Acceptance Criteria
 
-- [ ] `Dealership` with `generatePossibleStartTimes()` slot calculation
-- [ ] `ServiceBay` with active/inactive flag
-- [ ] `Technician` with specializations set and `isQualifiedFor()` business rule
-- [ ] `ServiceType` with duration and required specialization
-- [ ] `Customer` and `Vehicle` entities
-- [ ] All entities use strongly-typed IDs
-- [ ] All entities extend `Entity<TId>` (not AggregateRoot — only Appointment is an aggregate root)
+- [x] `Dealership` with `generatePossibleStartTimes()` slot calculation
+- [x] `ServiceBay` with active/inactive flag
+- [x] `Technician` with specializations set and `isQualifiedFor()` business rule
+- [x] `ServiceType` with duration and required specialization
+- [x] `Customer` and `Vehicle` entities
+- [x] All entities use strongly-typed IDs
+- [x] All entities extend `Entity<TId>` (not AggregateRoot — only Appointment is an aggregate root)
 
 ## Implementation Details
 
