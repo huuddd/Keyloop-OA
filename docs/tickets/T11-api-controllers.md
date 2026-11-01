@@ -18,19 +18,19 @@ Key design decisions:
 
 ## Acceptance Criteria
 
-- [ ] `POST /api/v1/appointments` → create appointment (201) with `Idempotency-Key` header
-- [ ] `GET /api/v1/appointments/{id}` → appointment details
-- [ ] `DELETE /api/v1/appointments/{id}` → cancel (204)
-- [ ] `PATCH /api/v1/appointments/{id}/check-in` → check in (204)
-- [ ] `PATCH /api/v1/appointments/{id}/complete` → complete (204)
-- [ ] `PATCH /api/v1/appointments/{id}/no-show` → mark no-show (204)
-- [ ] `GET /api/v1/appointments?customerId=&status=&pageIndex=0&pageSize=20&sortBy=startTime&sortDirection=desc` → paginated search
-- [ ] `GET /api/v1/dealerships/{id}/availability?serviceTypeId=&date=&pageIndex=0&pageSize=20` → available slots
-- [ ] `GlobalExceptionHandler` → RFC 7807 ProblemDetail for all error types
-- [ ] `CorrelationIdFilter` — `X-Correlation-ID` in MDC and response header
-- [ ] `IdempotencyFilter` — cached responses for duplicate `Idempotency-Key`
-- [ ] Request validation (`@Valid`, `@NotNull`, `@Future`)
-- [ ] cURL examples for manual testing
+- [x] `POST /api/v1/appointments` → create appointment (201) with `Idempotency-Key` header
+- [x] `GET /api/v1/appointments/{id}` → appointment details
+- [x] `DELETE /api/v1/appointments/{id}` → cancel (204)
+- [x] `PATCH /api/v1/appointments/{id}/check-in` → check in (204)
+- [x] `PATCH /api/v1/appointments/{id}/complete` → complete (204)
+- [x] `PATCH /api/v1/appointments/{id}/no-show` → mark no-show (204)
+- [x] `GET /api/v1/appointments?customerId=&status=&pageIndex=0&pageSize=20&sortBy=startTime&sortDirection=desc` → paginated search
+- [x] `GET /api/v1/dealerships/{id}/availability?serviceTypeId=&date=&pageIndex=0&pageSize=20` → available slots
+- [x] `GlobalExceptionHandler` → RFC 7807 ProblemDetail for all error types
+- [x] `CorrelationIdFilter` — `X-Correlation-ID` in MDC and response header
+- [x] `IdempotencyFilter` — cached responses for duplicate `Idempotency-Key`
+- [x] Request validation (`@Valid`, `@NotNull`, `@Future`)
+- [x] cURL examples for manual testing
 
 ## Implementation Details
 
