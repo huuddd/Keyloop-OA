@@ -19,15 +19,15 @@ Key design decisions:
 
 ## Acceptance Criteria
 
-- [ ] JPA entities for all tables (mapping matches schema from T03)
-- [ ] `AppointmentJpaEntity` with audit fields, soft delete annotations, typed ID conversion
-- [ ] `SpringDataAppointmentRepository` extends `JpaRepository` + `JpaSpecificationExecutor`
-- [ ] Pessimistic lock queries (`@Lock(PESSIMISTIC_WRITE)` + `@Query`)
-- [ ] `JpaAppointmentRepository` adapter implements `AppointmentRepository` domain port
-- [ ] `searchAppointments()` with `Specification`-based dynamic filtering + sort whitelist
-- [ ] Strongly-typed ID converters (`AppointmentIdConverter`, `CustomerIdConverter`, etc.)
-- [ ] All other JPA entities + adapters for remaining domain repositories
-- [ ] App starts successfully, Hibernate validates schema
+- [x] JPA entities for all tables (mapping matches schema from T03)
+- [x] `AppointmentJpaEntity` with audit fields, soft delete annotations, typed ID conversion
+- [x] `SpringDataAppointmentRepository` extends `JpaRepository` + `JpaSpecificationExecutor`
+- [x] Pessimistic lock queries (`@Lock(PESSIMISTIC_WRITE)` + `@Query`)
+- [x] `JpaAppointmentRepository` adapter implements `AppointmentRepository` domain port
+- [x] `searchAppointments()` with `Specification`-based dynamic filtering + sort whitelist
+- [x] Strongly-typed ID converters (`AppointmentIdConverter`, `CustomerIdConverter`, etc.)
+- [x] All other JPA entities + adapters for remaining domain repositories
+- [x] App starts successfully, Hibernate validates schema
 
 ## Implementation Details
 
