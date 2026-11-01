@@ -12,13 +12,13 @@ Finalize cross-cutting concerns: structured logging configuration, Dockerfile fo
 
 ## Acceptance Criteria
 
-- [ ] `logback-spring.xml` — structured logging with `correlationId` in every log line
-- [ ] `Dockerfile` — multi-stage build (Maven → JRE 21)
-- [ ] `docker-compose.yml` — app service depending on postgres (healthcheck)
-- [ ] `IdempotencyCleanupJob` — scheduled cleanup of expired keys (24h TTL)
-- [ ] `ClockConfig` — injectable `Clock` for deterministic time in tests
-- [ ] `DomainEventPublisher` — adapter implementing `EventPublisher` port via Spring `ApplicationEventPublisher`
-- [ ] `README.md` — build/run/test instructions + architecture overview
+- [x] `logback-spring.xml` — structured logging with `correlationId` in every log line
+- [x] `Dockerfile` — multi-stage build (Maven → JRE 21)
+- [x] `docker-compose.yml` — app service depending on postgres (healthcheck)
+- [x] `IdempotencyCleanupJob` — scheduled cleanup of expired keys (24h TTL)
+- [x] `ClockConfig` — injectable `Clock` for deterministic time in tests
+- [x] `DomainEventPublisher` — adapter implementing `EventPublisher` port via Spring `ApplicationEventPublisher`
+- [x] `README.md` — build/run/test instructions + architecture overview
 - [ ] `docker compose up` → app + postgres running, `/actuator/health` returns UP
 
 ## Implementation Details
