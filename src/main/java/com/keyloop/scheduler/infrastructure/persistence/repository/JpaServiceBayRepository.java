@@ -22,4 +22,10 @@ public class JpaServiceBayRepository implements ServiceBayRepository {
         return springRepo.findByDealershipIdAndIsActiveTrue(dealershipId.value()).stream()
             .map(ServiceBayJpaEntity::toDomain).toList();
     }
+
+    @Override
+    public List<ServiceBay> findActiveByDealershipIdWithLock(DealershipId dealershipId) {
+        return springRepo.findActiveByDealershipIdWithLock(dealershipId.value()).stream()
+            .map(ServiceBayJpaEntity::toDomain).toList();
+    }
 }

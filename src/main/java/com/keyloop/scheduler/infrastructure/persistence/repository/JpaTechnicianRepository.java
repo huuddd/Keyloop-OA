@@ -23,7 +23,7 @@ public class JpaTechnicianRepository implements TechnicianRepository {
     public List<Technician> findByDealershipIdAndSpecialization(
             DealershipId dealershipId, Specialization specialization) {
         return springRepo.findByDealershipIdAndSpecialization(
-                dealershipId.value(), specialization.name()).stream()
+                dealershipId.value(), specialization).stream()
             .map(TechnicianJpaEntity::toDomain).toList();
     }
 }

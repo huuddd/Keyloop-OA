@@ -69,7 +69,7 @@ class CreateAppointmentCommandHandlerTest {
             .thenReturn(Optional.of(serviceType));
 
         var bay = new ServiceBay(ServiceBayId.of(1L), DealershipId.of(1L), "Bay 1", true);
-        when(serviceBayRepo.findActiveByDealershipId(DealershipId.of(1L)))
+        when(serviceBayRepo.findActiveByDealershipIdWithLock(DealershipId.of(1L)))
             .thenReturn(List.of(bay));
 
         when(appointmentRepo.findOverlappingForBayWithLock(
@@ -119,7 +119,7 @@ class CreateAppointmentCommandHandlerTest {
             .thenReturn(Optional.of(serviceType));
 
         // No bays available
-        when(serviceBayRepo.findActiveByDealershipId(DealershipId.of(1L)))
+        when(serviceBayRepo.findActiveByDealershipIdWithLock(DealershipId.of(1L)))
             .thenReturn(List.of());
 
         // When
@@ -145,7 +145,7 @@ class CreateAppointmentCommandHandlerTest {
             .thenReturn(Optional.of(serviceType));
 
         var bay = new ServiceBay(ServiceBayId.of(1L), DealershipId.of(1L), "Bay 1", true);
-        when(serviceBayRepo.findActiveByDealershipId(DealershipId.of(1L)))
+        when(serviceBayRepo.findActiveByDealershipIdWithLock(DealershipId.of(1L)))
             .thenReturn(List.of(bay));
 
         when(appointmentRepo.findOverlappingForBayWithLock(
@@ -180,7 +180,7 @@ class CreateAppointmentCommandHandlerTest {
             .thenReturn(Optional.of(serviceType));
 
         var bay = new ServiceBay(ServiceBayId.of(1L), DealershipId.of(1L), "Bay 1", true);
-        when(serviceBayRepo.findActiveByDealershipId(DealershipId.of(1L)))
+        when(serviceBayRepo.findActiveByDealershipIdWithLock(DealershipId.of(1L)))
             .thenReturn(List.of(bay));
 
         when(appointmentRepo.findOverlappingForBayWithLock(

@@ -16,17 +16,17 @@ Create integration tests running against **real PostgreSQL** (Testcontainers) to
 
 ## Acceptance Criteria
 
-- [ ] Base test class with Testcontainers PostgreSQL configuration
-- [ ] Test: create appointment → 201 + correct response (with `Idempotency-Key`)
-- [ ] Test: create appointment with invalid data → 400
-- [ ] Test: create + cancel → 204
-- [ ] Test: check-in, complete, no-show lifecycle transitions
-- [ ] Test: get availability → returns paginated slots
-- [ ] Test: search appointments → paginated results with filters
-- [ ] Test: **concurrent booking** — multiple threads book same slot → some succeed, rest get 409
-- [ ] Test: duplicate `Idempotency-Key` → returns cached response
-- [ ] ArchUnit tests for Clean Architecture layer constraints
-- [ ] All tests pass: `mvn test`
+- [x] Base test class with Testcontainers PostgreSQL configuration
+- [x] Test: create appointment → 201 + correct response (with `Idempotency-Key`)
+- [x] Test: create appointment with invalid data → 400
+- [x] Test: create + cancel → 204
+- [x] Test: check-in, complete, no-show lifecycle transitions
+- [x] Test: get availability → returns paginated slots
+- [x] Test: search appointments → paginated results with filters
+- [x] Test: **concurrent booking** — multiple threads book same slot → some succeed, rest get 409
+- [x] Test: duplicate `Idempotency-Key` → returns cached response
+- [x] ArchUnit tests for Clean Architecture layer constraints
+- [x] All tests pass: `mvn test`
 
 ## Implementation Details
 

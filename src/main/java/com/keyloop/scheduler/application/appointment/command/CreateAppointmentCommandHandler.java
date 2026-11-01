@@ -71,8 +71,11 @@ public class CreateAppointmentCommandHandler
         var serviceType = serviceTypeRepo.findById(serviceTypeId).orElseThrow();
         var endTime = command.startTime().plusMinutes(serviceType.getDurationMinutes());
 
-        // 2. Find available bay with pessimistic lock
-        var bays = serviceBayRepo.findActiveByDealershipId(dealershipId);
+        // 2. Find available bay with pessimistic lock on bay rows
+        //    Locking the bay rows serializes concurrent booking for the same dealership,
+        //    preventing the "phantom read" problem where two txns both see zero overlapping
+        //    appointments and both proceed to insert.
+        var bays = serviceBayRepo.findActiveByDealershipIdWithLock(dealershipId);
         ServiceBayId selectedBayId = null;
 
         for (var bay : bays) {

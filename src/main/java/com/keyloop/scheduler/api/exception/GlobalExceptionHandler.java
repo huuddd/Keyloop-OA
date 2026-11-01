@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.dao.CannotAcquireLockException;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -52,8 +54,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public static HttpStatus mapErrorToStatus(Error error) {
         var code = error.code();
         if (code.endsWith(".NotFound")) return HttpStatus.NOT_FOUND;
-        if (code.contains("NotAvailable") || code.contains("Conflict"))
+        if (code.contains("NotAvailable") || code.contains("Available")
+                || code.contains("Conflict"))
             return HttpStatus.CONFLICT;
+        if (code.contains("InvalidTransition"))
+            return HttpStatus.UNPROCESSABLE_ENTITY;
         return HttpStatus.BAD_REQUEST;
     }
 
@@ -124,6 +129,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         problem.setTitle("Bad Request");
         problem.setInstance(URI.create(request.getRequestURI()));
         problem.setProperty("errorCode", "invalid-request");
+        problem.setProperty("correlationId", MDC.get("correlationId"));
+        problem.setProperty("timestamp", Instant.now().toString());
+        return problem;
+    }
+
+    @ExceptionHandler(PessimisticLockingFailureException.class)
+    public ProblemDetail handleLockFailure(PessimisticLockingFailureException ex,
+                                            HttpServletRequest request) {
+        log.warn("Lock contention at {}: {}", request.getRequestURI(), ex.getMessage());
+        var problem = ProblemDetail.forStatusAndDetail(
+            HttpStatus.CONFLICT,
+            "The requested resource is currently being modified. Please retry.");
+        problem.setType(URI.create(PROBLEM_BASE_URI + "lock-contention"));
+        problem.setTitle("Conflict");
+        problem.setInstance(URI.create(request.getRequestURI()));
+        problem.setProperty("errorCode", "lock-contention");
         problem.setProperty("correlationId", MDC.get("correlationId"));
         problem.setProperty("timestamp", Instant.now().toString());
         return problem;

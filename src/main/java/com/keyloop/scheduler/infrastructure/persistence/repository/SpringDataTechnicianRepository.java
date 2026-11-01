@@ -1,6 +1,7 @@
 package com.keyloop.scheduler.infrastructure.persistence.repository;
 
 import com.keyloop.scheduler.infrastructure.persistence.entity.TechnicianJpaEntity;
+import com.keyloop.scheduler.domain.servicetype.Specialization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +18,5 @@ public interface SpringDataTechnicianRepository extends JpaRepository<Technician
         """)
     List<TechnicianJpaEntity> findByDealershipIdAndSpecialization(
         @Param("dealershipId") Long dealershipId,
-        @Param("specialization") String specialization);
+        @Param("specialization") Specialization specialization);
 }
