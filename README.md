@@ -12,7 +12,7 @@ Clean Architecture with 4 layers, enforced by **9 ArchUnit rules** at build time
 graph LR
     API["api/<br/>Controllers<br/>Exception Handler<br/>Request DTOs"]
     APP["application/<br/>CQRS Handlers<br/>Validation Pipeline<br/>DTOs"]
-    DOM["domain/<br/>Aggregates<br/>Value Objects<br/>Repository Interfaces<br/><i>Zero framework deps</i>"]
+    DOM["domain/<br/>Aggregates<br/>Value Objects<br/>Repository Interfaces<br/>Zero framework deps"]
     INF["infrastructure/<br/>JPA Adapters<br/>Filters<br/>Event Publishing"]
 
     API --> APP
@@ -52,18 +52,18 @@ sequenceDiagram
     participant Ctrl as AppointmentController
     participant H as CreateAppointmentCommandHandler
     participant V as CommandValidator
-    participant D as Domain (Appointment)
-    participant R as Repository (JPA)
+    participant D as Domain
+    participant R as Repository
     participant DB as PostgreSQL
 
-    C->>F: POST /api/v1/appointments<br/>+ Idempotency-Key
+    C->>F: POST /api/v1/appointments + Idempotency-Key
     F->>F: Check idempotency store
     F->>Ctrl: Forward request
     Ctrl->>H: CreateAppointmentCommand
     H->>V: Validate command
     V-->>H: OK
     H->>R: findActiveByDealershipIdWithLock()
-    R->>DB: SELECT ... FOR UPDATE<br/>(lock service bay rows)
+    R->>DB: SELECT ... FOR UPDATE (lock bay rows)
     DB-->>R: Locked bays
     H->>H: Find available bay + technician
     H->>D: Appointment.create(...)
@@ -84,12 +84,12 @@ sequenceDiagram
 
     T1->>DB: BEGIN
     T2->>DB: BEGIN
-    T1->>DB: SELECT bays FOR UPDATE<br/>(locks bay rows)
-    T2->>DB: SELECT bays FOR UPDATE<br/>(BLOCKED -- waits for T1)
+    T1->>DB: SELECT bays FOR UPDATE (locks rows)
+    T2->>DB: SELECT bays FOR UPDATE (BLOCKED, waits for T1)
     T1->>DB: Find bay available, INSERT appointment
     T1->>DB: COMMIT (releases lock)
     T2->>DB: Lock acquired, reads updated state
-    T2->>DB: Bay now occupied -> 409 Conflict
+    T2->>DB: Bay occupied, return 409 Conflict
     T2->>DB: ROLLBACK
 ```
 
@@ -223,7 +223,7 @@ graph TB
         D1[Appointment aggregate]
         D2[State transitions]
         D3[TimeSlot / Value objects]
-        D4["Result&lt;T&gt; sealed types"]
+        D4["Result sealed types"]
     end
 
     subgraph "Architecture (9)"
@@ -266,9 +266,9 @@ The concurrency integration test spawns **6 threads** competing for **3 service 
 
 ```mermaid
 graph LR
-    APP["Spring Boot App<br/>/actuator/prometheus"] -->|scrape every 15s| PROM["Prometheus<br/>:9090"]
-    PROM --> GRAF["Grafana<br/>:3000"]
-    APP -->|structured logs| LOG["Logback<br/>+ correlationId MDC"]
+    APP["Spring Boot App<br/>/actuator/prometheus"] -->|scrape 15s| PROM["Prometheus :9090"]
+    PROM --> GRAF["Grafana :3000"]
+    APP -->|structured logs| LOG["Logback + correlationId MDC"]
 
     style APP fill:#2a9d8f,stroke:#264653,color:#fff
     style PROM fill:#e76f51,stroke:#c44536,color:#fff
