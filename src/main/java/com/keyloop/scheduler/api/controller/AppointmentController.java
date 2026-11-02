@@ -11,6 +11,8 @@ import com.keyloop.scheduler.application.dto.AppointmentDto;
 import com.keyloop.scheduler.application.dto.PagedResult;
 import com.keyloop.scheduler.domain.shared.Error;
 import com.keyloop.scheduler.domain.shared.Result;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -51,6 +53,10 @@ public class AppointmentController {
 
     @PostMapping
     public ResponseEntity<?> createAppointment(
+            @Parameter(in = ParameterIn.HEADER, name = "Idempotency-Key",
+                       description = "Unique key for idempotent request (24h TTL)",
+                       required = true, example = "550e8400-e29b-41d4-a716-446655440000")
+            @RequestHeader("Idempotency-Key") String idempotencyKey,
             @Valid @RequestBody CreateAppointmentRequest request,
             HttpServletRequest httpRequest) {
 
