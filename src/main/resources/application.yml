@@ -34,4 +34,15 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics
+        include: health,info,metrics,prometheus,env,flyway,scheduledtasks
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: unified-scheduler
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      sla:
+        http.server.requests: 50ms, 100ms, 200ms, 500ms, 1s

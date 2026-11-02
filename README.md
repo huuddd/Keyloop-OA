@@ -4,7 +4,7 @@
 
 **Scenario A: The Unified Service Scheduler (Domain: Ownership)**
 
-A scheduling system for automotive dealerships that manages service appointments, technician assignments, service bay allocation, and availability queries. The system prevents double-booking of service bays and technicians, enforces appointment lifecycle state transitions (SCHEDULED -> CHECKED_IN -> IN_PROGRESS -> COMPLETED, with CANCELLED and NO_SHOW paths), and supports priority-based scheduling.
+A scheduling system for automotive dealerships that manages service appointments, technician assignments, service bay allocation, and availability queries. The system prevents double-booking of service bays and technicians through pessimistic locking, and enforces appointment lifecycle state transitions (CONFIRMED -> IN_PROGRESS -> COMPLETED, with CANCELLED and NO_SHOW paths).
 
 ## Architecture
 
@@ -67,12 +67,12 @@ docker compose up -d postgres   # Start PostgreSQL only
 ./mvnw test -Dtest="com.keyloop.scheduler.domain.**"
 ```
 
-The test suite includes:
-- **Domain unit tests** -- pure Java, no Spring context
-- **Application handler tests** -- Mockito-based, testing CQRS handlers and validation
-- **Infrastructure tests** -- filter behavior (CorrelationId, Idempotency)
-- **Architecture tests** -- ArchUnit enforcing layer dependency rules
-- **Integration tests** -- Testcontainers with full Spring context, including concurrency tests for double-booking prevention
+The test suite includes **98 tests** across 5 categories:
+- **Domain unit tests** (55) -- pure Java, no Spring context (Appointment, TimeSlot, AppointmentStatus, Result, Dealership, Technician)
+- **Application handler tests** (18) -- Mockito-based, testing CQRS handlers and validation
+- **Infrastructure tests** (3) -- filter behavior (CorrelationId)
+- **Architecture tests** (9) -- ArchUnit enforcing layer dependency rules and naming conventions
+- **Integration tests** (13) -- Testcontainers with real PostgreSQL, including concurrency test for double-booking prevention
 
 ## API Endpoints
 
@@ -91,7 +91,7 @@ All error responses follow **RFC 7807 Problem Detail** format. The `POST` endpoi
 
 ## Key Design Decisions
 
-- **Double-booking prevention**: Uses `SELECT ... FOR UPDATE` pessimistic locking on service bays and technicians during appointment creation (see FR2/BR2).
+- **Double-booking prevention**: Uses `SELECT ... FOR UPDATE` pessimistic locking on service bay rows during appointment creation, which serializes concurrent transactions even when no appointments exist yet for a time slot (see FR2/BR2).
 - **CQRS**: Every use case is modeled as either a Command (write) or Query (read) with dedicated handlers.
 - **Result\<T\> for domain outcomes**: Business-rule failures (e.g., invalid state transitions, slot conflicts) return `Result.Failure` instead of throwing exceptions. Application-boundary errors (not found, invalid input) use exceptions mapped to RFC 7807.
 - **Strongly-typed IDs**: Domain methods never accept raw `Long`/`UUID`; handlers convert at the boundary.
