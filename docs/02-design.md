@@ -57,7 +57,7 @@ graph TB
         SVC["servicetype/<br/>ServiceType, Specialization<br/>ServiceTypeRepository"]
         CST["customer/<br/>Customer, Vehicle<br/>CustomerRepository, VehicleRepository"]
         DLR["dealership/<br/>Dealership, ServiceBay, Technician<br/>DealershipRepository, ServiceBayRepository<br/>TechnicianRepository"]
-        SHR["shared/<br/>Entity → AuditableEntity → SoftDeletableEntity → AggregateRoot<br/>Result&lt;T&gt;, Error, DomainEvent<br/>Typed IDs (AppointmentId, CustomerId, ...)"]
+        SHR["shared/<br/>Entity, AuditableEntity, SoftDeletableEntity, AggregateRoot<br/>Result, Error, DomainEvent<br/>Typed IDs: AppointmentId, CustomerId, ..."]
     end
 
     subgraph INFRA["Infrastructure Layer"]
@@ -188,7 +188,7 @@ sequenceDiagram
     QH->>TR: findByDealershipIdAndSpecialization(dealershipId, spec)
     QH->>AR: findByDealershipAndDate(dealershipId, date)
     Note over QH: For each bay × each time slot:<br/>check bay overlap, find free qualified tech
-    QH-->>AC: PagedResult<AvailableSlotDto>
+    QH-->>AC: PagedResult of AvailableSlotDto
     AC-->>C: 200 OK + paged slots
 ```
 
@@ -215,7 +215,7 @@ sequenceDiagram
         CH->>AR: findOverlappingForBayWithLock(bayId, start, end)
         Note over CH: SELECT ... FOR UPDATE<br/>Pessimistic lock on overlapping rows
         CH->>AR: findOverlappingForTechnicianWithLock(techId, start, end)
-        CH->>CH: Appointment.create(...) → Result<Appointment>
+        CH->>CH: Appointment.create() returns Result
         alt Success
             CH->>AR: save(appointment)
             CH->>EP: publish(AppointmentCreatedEvent)
@@ -243,7 +243,7 @@ sequenceDiagram
     C->>AC: DELETE /appointments/{id}
     AC->>CH: handle(CancelAppointmentCommand)
     CH->>AR: findById(id)
-    CH->>CH: appointment.cancel(clock) → Result<Appointment>
+    CH->>CH: appointment.cancel(clock) returns Result
     alt Valid transition
         CH->>AR: save(appointment)
         CH->>EP: publish(AppointmentCancelledEvent)
