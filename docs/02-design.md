@@ -508,43 +508,43 @@ graph TB
     end
 
     subgraph Filters["Servlet Filters"]
-        CIF[CorrelationIdFilter<br/>X-Correlation-ID → MDC]
-        IDF[IdempotencyFilter<br/>Idempotency-Key → cache]
+        CIF["CorrelationIdFilter<br/>X-Correlation-ID to MDC"]
+        IDF["IdempotencyFilter<br/>Idempotency-Key cache"]
     end
 
     subgraph API["API Layer"]
-        AC[AppointmentController<br/>POST, GET, DELETE, PATCH]
-        AVC[AvailabilityController<br/>GET availability]
-        GEH[GlobalExceptionHandler<br/>RFC 7807 ProblemDetail]
+        AC["AppointmentController<br/>POST, GET, DELETE, PATCH"]
+        AVC["AvailabilityController<br/>GET availability"]
+        GEH["GlobalExceptionHandler<br/>RFC 7807 ProblemDetail"]
     end
 
     subgraph Application["Application Layer (CQRS)"]
-        VS[ValidatingService<br/>CommandValidator pipeline]
+        VS["ValidatingService<br/>CommandValidator pipeline"]
         CMD["Command Handlers<br/>Create, Cancel, CheckIn,<br/>Complete, NoShow"]
         QRY["Query Handlers<br/>GetById, Search, AvailableSlots"]
-        EP[EventPublisher port]
+        EP["EventPublisher port"]
     end
 
     subgraph Domain["Domain Layer (Pure Java)"]
-        AGG["Aggregates<br/>Appointment (root)<br/>ServiceType"]
+        AGG["Aggregates<br/>Appointment root, ServiceType"]
         ENT["Entities<br/>Customer, Vehicle<br/>Dealership, ServiceBay, Technician"]
         VO["Value Objects<br/>AppointmentId, CustomerId, VehicleId<br/>TimeSlot, Specialization, AppointmentStatus"]
         EVT["Domain Events<br/>Created, Cancelled, CheckedIn<br/>Completed, NoShow"]
-        RES["Result&lt;T&gt; / Error<br/>No exceptions in domain"]
-        REPO_IF["Repository Interfaces<br/>(ports)"]
+        RES["Result / Error<br/>No exceptions in domain"]
+        REPO_IF["Repository Interfaces<br/>ports"]
     end
 
     subgraph Infrastructure["Infrastructure Layer"]
-        JPA["JPA Entities<br/>(separate from domain)"]
-        REPO_IMPL["Spring Data Repositories<br/>+ Domain Adapters"]
-        DEP[DomainEventPublisher<br/>Spring ApplicationEventPublisher]
-        CLK[ClockConfig<br/>Deterministic time]
-        AUD[JpaAuditConfig<br/>@CreatedDate, @LastModifiedDate]
-        JOB[IdempotencyCleanupJob<br/>Scheduled 24h TTL cleanup]
+        JPA["JPA Entities<br/>separate from domain"]
+        REPO_IMPL["Spring Data Repositories<br/>Domain Adapters"]
+        DEP["DomainEventPublisher<br/>Spring ApplicationEventPublisher"]
+        CLK["ClockConfig<br/>Deterministic time"]
+        AUD["JpaAuditConfig<br/>CreatedDate, LastModifiedDate"]
+        JOB["IdempotencyCleanupJob<br/>Scheduled 24h TTL cleanup"]
     end
 
     subgraph DB["PostgreSQL 16"]
-        PG[(Tables + Indexes<br/>Flyway V1-V5 migrations)]
+        PG[("Tables + Indexes<br/>Flyway V1-V5 migrations")]
     end
 
     HTTP --> CIF --> IDF --> API
